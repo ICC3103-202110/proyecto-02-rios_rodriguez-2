@@ -27,15 +27,12 @@ function getTable(model){
     ]
 }
 function inputForm(model){
-    const {name, temp} = model
+    const {name, temp, max, min} = model
     const action = 'Select action:'
     const location = 'Location?'
     const question = 'Select an option'
     const choices = ['Add City', 'Update City', 'Delete City']
-    var names = name
     console.log(name)
-    console.log(temp)
-
     return inquirer.prompt([
         {
             name: 'action',
@@ -51,16 +48,16 @@ function inputForm(model){
         },
         {
             name: 'location',
-            type: 'input',
+            type: 'list',
             message: question,
-            choices: names,
+            choices: name,
             when: (answers) => answers.action === 'Update City'
         }, 
         {
             name: 'location',
-            type: 'input',
+            type: 'list',
             message: question,
-            choices: names,
+            choices: name,
             when: (answers) => answers.action === 'Delete City'
         } 
     ])
@@ -74,7 +71,7 @@ function view(model){
     }
 }
 function getRandom() {
-    return Math.random();
+    return Math.random()*100;
   }
 
 module.exports = {
