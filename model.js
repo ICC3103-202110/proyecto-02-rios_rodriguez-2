@@ -1,4 +1,5 @@
 initModel = {
+    
     name: [],
     temp: {},
     max: {},

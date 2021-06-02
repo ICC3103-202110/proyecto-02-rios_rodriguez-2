@@ -27,9 +27,14 @@ function getTable(model){
     ]
 }
 function inputForm(model){
+    const {name, temp} = model
     const action = 'Select action:'
     const location = 'Location?'
+    const question = 'Select an option'
     const choices = ['Add City', 'Update City', 'Delete City']
+    var names = name
+    console.log(name)
+    console.log(temp)
 
     return inquirer.prompt([
         {
@@ -47,9 +52,17 @@ function inputForm(model){
         {
             name: 'location',
             type: 'input',
-            message: location,
-            when: (answers) => answers.action === 'Add City'
-        }
+            message: question,
+            choices: names,
+            when: (answers) => answers.action === 'Update City'
+        }, 
+        {
+            name: 'location',
+            type: 'input',
+            message: question,
+            choices: names,
+            when: (answers) => answers.action === 'Delete City'
+        } 
     ])
 }
 

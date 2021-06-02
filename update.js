@@ -15,7 +15,7 @@ function update(input, model){
         return {
             ...model,
             name: name,
-            temp: temp,
+            temp: Object.values(temp), //[location],
             max: 4,
             min: 5
         }
