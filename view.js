@@ -19,9 +19,9 @@ function getTable(model){
     return [
         {
         'Name': name,
-        'Temp': temp,
-        'Max': max,
-        'Min': min
+        'Temp': Object.values(temp),
+        'Max': Object.values(max),
+        'Min': Object.values(min)
       }
     
     ]
