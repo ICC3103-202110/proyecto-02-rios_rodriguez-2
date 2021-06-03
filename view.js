@@ -33,6 +33,9 @@ function inputForm(model){
     const question = 'Select an option'
     const choices = ['Add City', 'Update City', 'Delete City']
     console.log(name)
+    console.log(temp)
+    console.log(max)
+    console.log(min)
     return inquirer.prompt([
         {
             name: 'action',
