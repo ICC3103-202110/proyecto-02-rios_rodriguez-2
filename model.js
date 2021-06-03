@@ -1,5 +1,5 @@
 initModel = {
-
+    total: [],
     name: [],
     temp: {},
     max: {},
@@ -8,5 +8,3 @@ initModel = {
 module.exports = {
     initModel
 }
-
-temp = {'Santiago': 234, 'gbos': 25432}

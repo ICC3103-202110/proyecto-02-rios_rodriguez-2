@@ -13,29 +13,12 @@ function getTitle(){
         )
     )
 }
-function getTable(model){
-    const {name, temp, max, min} = model
-    
-    return [
-        {
-        'Name': name,
-        'Temp': Object.values(temp),
-        'Max': Object.values(max),
-        'Min': Object.values(min)
-      }
-    
-    ]
-}
 function inputForm(model){
-    const {name, temp, max, min} = model
+    const {name, temp, max, min, total} = model
     const action = 'Select action:'
     const location = 'Location?'
     const question = 'Select an option'
     const choices = ['Add City', 'Update City', 'Delete City']
-    console.log(name)
-    console.log(temp)
-    console.log(max)
-    console.log(min)
     return inquirer.prompt([
         {
             name: 'action',
@@ -69,8 +52,8 @@ function inputForm(model){
 
 function view(model){
     return {
-        title: getTitle(),
-        table: getTable(model)
+        title: getTitle()
+       
     }
 }
 function getRandom() {

@@ -1,14 +1,15 @@
 const {inputForm} = require('./view')
 const {printTable} = require('console-table-printer')
 
-async function app(state, update, view){
+async function app(state, update, view, model){
     while (true){
         const {model, currentView} = state
-        const {title, table} = currentView
+        const {total} = model
+        const {title} = currentView
 
         console.clear()
         console.log(title)
-        printTable(table)
+        printTable(total)
 
         const input = await inputForm(model)
         const updatedModel = update(input, model)
