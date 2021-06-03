@@ -1,3 +1,14 @@
+const axios = require('axios').default;
+const request = require('request')
+
+function connectToApi(cityName,ApiKey){
+    const url = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${ApiKey}`
+    request(url,(error,response,body) => {
+        const data =JSON.parse(body)
+        console.log(data.main)
+    })}
+connectToApi('London,uk','9c75ae29490ad76f0fce010f77faf5a4')
+
 const {getRandom} = require('./view')
 function update(input, model){
     const {action, location} = input
