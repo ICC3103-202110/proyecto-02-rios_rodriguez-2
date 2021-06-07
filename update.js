@@ -28,15 +28,16 @@ const request = require('request')
         total.push({location: location, temp: data.main.temp, max: data.main.temp_max, min: data.main.temp_min})
 
     }
-    else if (action === 'Delete City'){  
+    else if (action === 'Delete City'){ 
+       
         nameIndex = name.indexOf(location)
         name.splice(nameIndex, 1)
         total.splice(nameIndex, 1)
         delete temp[location]
         delete max[location]
         delete min[location]
-        
-    }
+        }
+    
 })
         return {
             ...model,

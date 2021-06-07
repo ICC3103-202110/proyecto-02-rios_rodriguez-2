@@ -13,8 +13,11 @@ function getTitle(){
         )
     )
 }
+
 function inputForm(model){
     const {name, temp, max, min, total} = model
+    console.log(total)
+
     const action = 'Select action:'
     const location = 'Location?'
     const question = 'Select an option'
@@ -44,11 +47,10 @@ function inputForm(model){
             type: 'list',
             message: question,
             choices: name,
-            when: (answers) => answers.action === 'Delete City'
+            when: (answers, model) => answers.action === 'Delete City' //&& !(total.length === 0))
         } 
     ])
 }
-
 
 function view(model){
     return {
