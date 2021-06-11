@@ -1,54 +1,88 @@
-const request = require('request')
+const http = require('http')
 
-    function update(input, model){
-    const ApiKey = '9c75ae29490ad76f0fce010f77faf5a4'
+function api(location) {
+  return new Promise((resolve, reject) => {
+    const ApiKey = '9c75ae29490ad76f0fce010f77faf5a4';
+    const url = `http://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${ApiKey}`;
+    const req = http.request(url, (res) => {
+      res.setEncoding('utf8');
+      let responseBody = '';
+
+      res.on('data', (chunk) => {
+        responseBody += chunk;
+      });
+
+      res.on('end', () => {
+        resolve(JSON.parse(responseBody));
+      });
+    });
+
+    req.on('error', (err) => {
+      reject(err);
+    });
+    req.end();
+  });
+}
+    async function update(input, model){
     const {action, location} = input
-    var {name, temp, max, min, total} = model
-
-    const url = `http://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${ApiKey}`
-    request(url,(error,response,body) => {
-        const data = JSON.parse(body)
-   
+    const {total} = model
+    
     if (action === 'Add City'){
-        name.push(location)
-        temp[location] = data.main.temp 
-        max[location] = data.main.temp_max
-        min[location] = data.main.temp_min
-        total.push({location: location, temp: data.main.temp, max: data.main.temp_max, min: data.main.temp_min})
+
+        await api(location)
+        .then(data => {
+            total.push({location: location, temp: data.main.temp, max: data.main.temp_max, min: data.main.temp_min})
+        })
+        .catch(err => {
+            console.log("ERROR");
+            console.error(err);
+        })
     }
+
     else if (action === 'Update City'){ 
-        temp[location] = data.main.temp
-        max[location] = data.main.temp_max
-        min[location] = data.main.temp_min
+        await api(location)
+        .then(data => {
+            for (i in total){
+                var name = total[i].location
+                if (name === location){
+                    total.splice(i, 1)
+                }
+            }
+            total.push({location: location, temp: data.main.temp, max: data.main.temp_max, min: data.main.temp_min})
+        })
+        .catch(err => {
+            console.log("ERROR");
+            console.error(err);
+        })
+         }
 
-        nameIndex = name.indexOf(location)
-        total.splice(nameIndex, 1)
-        name.splice(nameIndex, 1)
-        name.push(location)
-        total.push({location: location, temp: data.main.temp, max: data.main.temp_max, min: data.main.temp_min})
-
-    }
     else if (action === 'Delete City'){ 
-       
-        nameIndex = name.indexOf(location)
-        name.splice(nameIndex, 1)
-        total.splice(nameIndex, 1)
-        delete temp[location]
-        delete max[location]
-        delete min[location]
+        await api(location)
+        .then(data => {
+            for (i in total){
+                var name = total[i].location
+                if (name === location){
+                    total.splice(i, 1)
+                }
+            }
+        })
+        .catch(err => {
+            console.log("ERROR");
+            console.error(err);
+        })
         }
     
-})
         return {
             ...model,
-            name: name,
-            temp: temp, 
-            max: max,
-            min: min
+            total: total
         }
-
 }
 
 module.exports = {
     update
 }
+
+
+
+
+

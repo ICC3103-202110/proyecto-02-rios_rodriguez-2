@@ -15,13 +15,14 @@ function getTitle(){
 }
 
 function inputForm(model){
-    const {name, temp, max, min, total} = model
-    console.log(total)
+    const {total} = model
+
 
     const action = 'Select action:'
     const location = 'Location?'
     const question = 'Select an option'
     const choices = ['Add City', 'Update City', 'Delete City']
+    cities = names(total)
     return inquirer.prompt([
         {
             name: 'action',
@@ -39,31 +40,39 @@ function inputForm(model){
             name: 'location',
             type: 'list',
             message: question,
-            choices: name,
+            choices: cities,
             when: (answers) => answers.action === 'Update City'
         }, 
         {
             name: 'location',
             type: 'list',
             message: question,
-            choices: name,
-            when: (answers, model) => answers.action === 'Delete City' //&& !(total.length === 0))
+            choices: cities,
+            when: (answers) => answers.action === 'Delete City'
         } 
     ])
 }
 
-function view(model){
+function view(){
     return {
         title: getTitle()
        
     }
 }
-function getRandom() {
-    return Math.random()*100;
-  }
+
+function names(model){
+    const total = model
+    var i = 0
+    var city = []
+    const length = total.length
+    while (i < length){
+        city.push(total[i].location)
+        i += 1
+    }
+    return city
+    }
 
 module.exports = {
     view, 
-    inputForm,
-    getRandom 
+    inputForm
 }

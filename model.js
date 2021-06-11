@@ -1,10 +1,10 @@
 initModel = {
-    total: [],
-    name: [],
-    temp: {},
-    max: {},
-    min: {}
+    total: []
 }
 module.exports = {
     initModel
 }
+
+
+
+
