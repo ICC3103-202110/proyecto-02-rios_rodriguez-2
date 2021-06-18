@@ -17,7 +17,6 @@ function getTitle(){
 function inputForm(model){
     const {total} = model
 
-
     const action = 'Select action:'
     const location = 'Location?'
     const question = 'Select an option'

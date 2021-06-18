@@ -13,10 +13,12 @@ async function app(state, update, view){
             console.log("No cities")
         }
         else{
-        printTable(total)
+            printTable(total)
         }
+        
         const input = await inputForm(model)
         const updatedModel = await update(input, model)
+        
         state = {
             ...state,
             model: updatedModel,

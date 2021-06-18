@@ -2,26 +2,26 @@ const http = require('http')
 
 function api(location) {
   return new Promise((resolve, reject) => {
-    const ApiKey = '9c75ae29490ad76f0fce010f77faf5a4';
-    const url = `http://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${ApiKey}`;
+    const ApiKey = '9c75ae29490ad76f0fce010f77faf5a4'
+    const url = `http://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${ApiKey}`
     const req = http.request(url, (res) => {
-      res.setEncoding('utf8');
-      let responseBody = '';
+      res.setEncoding('utf8')
+      let responseBody = ''
 
       res.on('data', (chunk) => {
-        responseBody += chunk;
-      });
+        responseBody += chunk
+      })
 
       res.on('end', () => {
-        resolve(JSON.parse(responseBody));
-      });
-    });
+        resolve(JSON.parse(responseBody))
+      })
+    })
 
     req.on('error', (err) => {
-      reject(err);
-    });
-    req.end();
-  });
+      reject(err)
+    })
+    req.end()
+  })
 }
     async function update(input, model){
     const {action, location} = input
@@ -34,7 +34,7 @@ function api(location) {
             total.push({location: location, temp: data.main.temp, max: data.main.temp_max, min: data.main.temp_min})
         })
         .catch(err => {
-            console.log("ERROR");
+            console.log("City doesnt exists");
             console.error(err);
         })
     }
